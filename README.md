@@ -1,6 +1,6 @@
 # Advanced RAG Chatbot
 
-A retrieval-augmented chatbot built with **LangGraph**, **LangChain**, and **Groq** — a FastAPI
+A retrieval-augmented chatbot built with **LangGraph**, **LangChain**, and **Gemini** — a FastAPI
 backend plus a small web chat frontend, wired around a self-correcting RAG pipeline instead of a
 single naive retrieve-then-generate call.
 
@@ -39,7 +39,7 @@ rag-chatbot/
 │   ├── app/
 │   │   ├── main.py            FastAPI app: ingestion + chat endpoints, static frontend hosting
 │   │   ├── config.py          Settings, loaded from .env
-│   │   ├── llm.py             Groq chat model factory
+│   │   ├── llm.py             Gemini chat model factory
 │   │   ├── schemas.py         Pydantic request/response models
 │   │   ├── graph/             LangGraph state, nodes, and graph assembly
 │   │   ├── ingestion/         File loaders (PDF/TXT/MD/DOCX) and website scraper
@@ -88,7 +88,7 @@ Interactive API docs are at http://localhost:8000/docs.
 The first time you ingest a document or send a message, two things download automatically in
 the background: the embedding model (~130MB, via `fastembed`) and the reranker model (a few
 tens of MB, via `flashrank`). Both need internet access once; after that they're cached locally
-and everything runs offline except the actual Groq/Tavily API calls.
+and everything runs offline except the actual Google/Tavily API calls.
 
 ## Using it
 
@@ -130,7 +130,7 @@ things worth swapping before relying on it for real traffic:
   length limits (fine for chat messages, but worth knowing). For very long inputs, switch to a
   `POST` + `fetch`/`ReadableStream` reader on the frontend.
 - **GOOGLE rate limits** — this graph makes multiple LLM calls per turn (route, grade each
-  retrieved chunk, generate, groundedness check, relevance check). That's easy to hit on Groq's
+  retrieved chunk, generate, groundedness check, relevance check). That's easy to hit on Google's
   free tier during heavy testing. Lower `RETRIEVAL_K` / `MAX_SELF_CORRECT_RETRIES`, or move to a
   paid tier, if you see 429s.
 - **BM25 rebuilds** — `retrieval/store.py` rebuilds the in-memory BM25 index from the full
@@ -148,4 +148,4 @@ things worth swapping before relying on it for real traffic:
   Face download failure (blocked network, corporate proxy). The app degrades gracefully
   (skips reranking, falls back to vector-only search) rather than crashing, but you'll get
   better retrieval once the models can download.
-- **429 errors from Groq** — you've hit the free-tier rate limit; see "Groq rate limits" above.
+- **429 errors from Google** — you've hit the free-tier rate limit; see "Google rate limits" above.
