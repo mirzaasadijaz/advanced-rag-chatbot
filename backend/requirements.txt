@@ -1,0 +1,36 @@
+# --- Web framework ---
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-multipart==0.0.32
+python-dotenv==1.2.3
+sse-starlette==3.4.11
+
+# --- LangChain / LangGraph ---
+langchain==1.4.0
+langchain-core==1.6.2
+langchain-text-splitters==1.1.2
+langchain-classic==1.0.8
+langchain-community==0.4.2
+langchain-google-genai>=4.3.4
+langchain-chroma==1.1.0
+langchain-tavily==0.2.18
+langgraph==1.2.11
+langchain_chroma
+langchain_huggingface
+
+# --- Vector store + retrieval ---
+chromadb==1.5.9
+fastembed==0.8.0          # local ONNX embeddings, no torch/GPU required
+rank-bm25==0.2.2
+flashrank==0.2.10         # local cross-encoder reranker, downloads its model on first use
+
+# --- Ingestion ---
+beautifulsoup4==4.15.0
+requests==2.34.2
+lxml==6.1.3
+pypdf==6.18.0
+docx2txt==0.9
+PyMuPDF
+
+sse_starlette
+sentence-transformers

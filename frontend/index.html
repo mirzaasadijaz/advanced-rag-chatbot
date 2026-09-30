@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Advanced RAG Chatbot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Advanced RAG</p>
+          <p class="brand-sub">GEMINI &middot; LangGraph</p>
+        </div>
+      </div>
+      <span id="statusDot" class="status-dot" title="Checking backend…"></span>
+    </div>
+
+    <section class="panel">
+      <h2 class="panel-title">Add knowledge</h2>
+
+      <button id="uploadBtn" class="btn-block" type="button">Upload documents</button>
+      <input id="fileInput" type="file" multiple hidden accept=".pdf,.txt,.md,.docx" />
+
+      <form id="urlForm" class="url-form">
+        <input id="urlInput" type="url" placeholder="https://example.com/docs" required />
+        <label class="checkbox-row">
+          <input id="crawlToggle" type="checkbox" />
+          <span>Follow links on this site</span>
+        </label>
+        <button class="btn-block" type="submit">Add website</button>
+      </form>
+
+      <p id="ingestStatus" class="ingest-status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel panel-grow">
+      <h2 class="panel-title">Sources <span id="sourceCount">(0)</span></h2>
+      <ul id="sourcesList" class="sources-list"></ul>
+    </section>
+
+    <div id="webSearchIndicator" class="web-search-indicator">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="label">Web search: checking…</span>
+    </div>
+  </aside>
+
+  <main class="chat">
+    <header class="chat-header">
+      <div>
+        <h1>Ask your knowledge base</h1>
+        <p>Hybrid retrieval, relevance grading, and a groundedness check run behind every answer.</p>
+      </div>
+      <button id="newChatBtn" class="btn-ghost" type="button">New chat</button>
+    </header>
+
+    <div id="messages" class="messages">
+      <div id="emptyState" class="empty-state">
+        <p>Add a document or a website on the left, or just ask a question &mdash; the assistant will
+           fall back to a live web search when it doesn't have enough context, if that's enabled.</p>
+      </div>
+    </div>
+
+    <form id="composerForm" class="composer">
+      <textarea
+        id="messageInput"
+        rows="1"
+        placeholder="Ask a question"
+        required
+      ></textarea>
+      <button id="sendBtn" type="submit" aria-label="Send message">Send</button>
+    </form>
+  </main>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
